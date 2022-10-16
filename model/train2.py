@@ -210,7 +210,7 @@ def train(epochs, batch_size):
         
         loss_file.close()
         if e <=20:
-            if e  % 1 == 0:
+            if e  % 5 == 0:
                 generator.save('gen_model%d.h5' % e)
         else:
              if e  % 10 == 0:
@@ -218,6 +218,6 @@ def train(epochs, batch_size):
         
 
 
-train(1, 64)
+train(100, 64)
 
 

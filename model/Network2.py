@@ -58,7 +58,7 @@ class Generator(object):
         gen_model = model
         
         # Using 16 Residual Blocks
-        for index in range(1):
+        for index in range(16):
 	        model = res_block_gen(model, 3, 64, 1, init)
             
 	    
