@@ -24,9 +24,9 @@ from sklearn.preprocessing import MinMaxScaler
 import xarray as xr
 from tensorflow.keras.utils import to_categorical
 
-# def my_MSE_weighted(y_true, y_pred):
-#   weights= tf.clip_by_value(y_true, K.log(0.1+1), K.log(100.0+1))
-#   return K.mean(tf.multiply(weights, tf.abs(tf.subtract(y_pred, y_true))))
+def my_MSE_weighted(y_true, y_pred):
+  weights= tf.clip_by_value(y_true, 0.01, 1)
+  return K.mean(tf.multiply(weights, tf.abs(tf.subtract(y_pred, y_true))))
 
 def make_FSS_loss(mask_size):  # choose any mask size for calculating densities
 
@@ -184,7 +184,8 @@ def train(epochs, batch_size):
     batch_count = int(x_train_lr.shape[0] / batch_size)
     
     generator = Generator(image_shape_lr).generator()
-    generator.compile(loss=make_FSS_loss(mask_size), optimizer = Adam(learning_rate=0.0001, beta_1=0.9),metrics='mse')
+   #  generator.compile(loss=make_FSS_loss(mask_size), optimizer = Adam(learning_rate=0.0001, beta_1=0.9),metrics='mse')
+    generator.compile(loss=my_MSE_weighted, optimizer = Adam(learning_rate=0.0001, beta_1=0.9),metrics='mse')
     loss_file = open('losses.txt' , 'w+')
     loss_file.close()
         
@@ -211,10 +212,10 @@ def train(epochs, batch_size):
         loss_file.close()
         if e <=20:
             if e  % 5 == 0:
-                generator.save('gen_model%d.h5' % e)
+                generator.save('gen_wmae_model%d.h5' % e)
         else:
              if e  % 10 == 0:
-                generator.save('gen_model%d.h5' % e)
+                generator.save('gen_wmae_model%d.h5' % e)
         
 
 
