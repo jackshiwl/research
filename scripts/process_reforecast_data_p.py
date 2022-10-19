@@ -218,7 +218,7 @@ def download_and_process_grib(
 @click.option(
     "-v",
     "--var-names",
-    default=["apcp_sfc"],
+    default=["pwat_eatm"],
     help="Gridded fields to download.",
     multiple=True,
 )
