@@ -1,4 +1,7 @@
 """A script + fns to download and process Reforecast V3 data."""
+'''
+This script process GEFSv12 dataset for p## members. 
+'''
 import os
 import logging
 import pathlib
@@ -94,7 +97,10 @@ def try_to_open_grib_file(path: str,) -> xr.Dataset:
         from the grib file.
     """
     try:
-        ds = xr.open_dataset(path, engine="cfgrib")
+        # 19/10/2022 
+        # for p## members, need to specify filter_by_keys for 'dataType':'pf', otherwise it will not work
+        # for c00 member, please refer to the other script file
+        ds = xr.open_dataset(path, engine="cfgrib",  backend_kwargs={'filter_by_keys': {'dataType': 'pf'}}) 
     except Exception as e:
         try:
             import cfgrib
@@ -205,7 +211,7 @@ def download_and_process_grib(
 @click.option(
     "-m",
     "--members",
-    default=["p01","p02","p03","p04"],
+    default=["p01", "p02", "p03", "p04"],
     help="Gridded fields to download.",
     multiple=True,
 )

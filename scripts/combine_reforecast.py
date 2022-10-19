@@ -1,9 +1,9 @@
 import xarray as xr
 
 # reading one FULL single varible folder
-# dsmerged = xr.open_mfdataset('./scratch/users/nus/e0560091/reforecast_v3/apcp_sfc_*_c00.nc')
+dsmerged = xr.open_mfdataset('./reforecast/reforecast_v3_cape_tcdc/cape_sfc_*_c00.nc')
 # dsmerged = xr.open_mfdataset('apcp_sfc_*_c00.nc')
-dsmerged = xr.open_mfdataset('C:\\Users\\bobby\\Desktop\\.vscode\\1 UROP Research\\UROP v2\\preprocessing\\reforecast_v3\\apcp_sfc_*_c00.nc')
+# dsmerged = xr.open_mfdataset('C:\\Users\\bobby\\Desktop\\.vscode\\1 UROP Research\\UROP v2\\preprocessing\\reforecast_v3\\apcp_sfc_*_c00.nc')
 
 # remove empty dimensions
 dsmerged = dsmerged.drop_vars('number') 
@@ -20,6 +20,6 @@ ds_merged = ds_merged.isel(time = slice(1,-1, 2))
 ds_merged = ds_merged.transpose("time", "latitude", "longitude")
 # ds_merged
 
-ds_merged.to_netcdf(path='GEFSv12-Reforecast_apcp_2000_2019.nc')
+ds_merged.to_netcdf(path='GEFSv12-Reforecast_cape_c00.nc')
 
 print('combined reforecast done')
