@@ -97,7 +97,7 @@ def try_to_open_grib_file(path: str,) -> xr.Dataset:
         from the grib file.
     """
     try:
-        ds = xr.open_dataset(path, engine="cfgrib") 
+        ds = xr.open_dataset(path, engine="cfgrib",  backend_kwargs={'filter_by_keys': {'dataType': 'pf'}}) 
     except Exception as e:
         try:
             import cfgrib
@@ -208,14 +208,14 @@ def download_and_process_grib(
 @click.option(
     "-m",
     "--members",
-    default=["p01"],
+    default=["c00"],
     help="Gridded fields to download.",
     multiple=True,
 )
 @click.option(
     "-v",
     "--var-names",
-    default=["apcp_sfc"],
+    default=["pwat_eatm"],
     help="Gridded fields to download.",
     multiple=True,
 )
@@ -249,7 +249,7 @@ def download_and_process_grib(
 )
 @click.option(
     "--local-save-dir",
-    default="./reforecast_v3_ens_apcp",
+    default="./reforecast_v3_pwat",
     help="Location to save processed data.",
 )
 @click.option(
