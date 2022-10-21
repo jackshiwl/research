@@ -215,7 +215,7 @@ def download_and_process_grib(
 @click.option(
     "-v",
     "--var-names",
-    default=["pwat_eatm"],
+    default=["cin_sfc"],
     help="Gridded fields to download.",
     multiple=True,
 )
@@ -249,7 +249,7 @@ def download_and_process_grib(
 )
 @click.option(
     "--local-save-dir",
-    default="./reforecast_v3_pwat",
+    default="./reforecast_v3_cin",
     help="Location to save processed data.",
 )
 @click.option(
