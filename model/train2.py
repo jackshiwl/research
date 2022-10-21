@@ -136,7 +136,7 @@ class_loss = weighted_categorical_crossentropy(weights=class_weights)
 
 #np.random.seed(100)
 image_shape_hr = (96,132,1)
-image_shape_lr=(8,11,1)
+image_shape_lr=(8,11,13)
 downscale_factor = 12
 # load low resolution other variables data for training
 # load low resolution data for training reforecast
