@@ -51,7 +51,7 @@ def resampling(partial_dataset, var):
         print('Error: var not found in function, please define')
 
 def transform_train(trainds, var):
-    if var == 'apcp':
+    if var == 'apcp': # tp
         scaler_train = MinMaxScaler()
         X_one_col = trainds.tp.values.reshape([trainds.tp.values.shape[0]*trainds.tp.values.shape[1]*trainds.tp.values.shape[2], 1])
         X_one_col = np.log10(X_one_col+1) # 10**X_one_col - 1 to scale back
@@ -62,7 +62,7 @@ def transform_train(trainds, var):
     if var == 'pwat':
         scaler_train = MinMaxScaler()
         X_one_col = trainds.pwat.values.reshape([trainds.pwat.values.shape[0]*trainds.pwat.values.shape[1]*trainds.pwat.values.shape[2], 1])
-        X_one_col = np.log10(X_one_col+1) # 10**X_one_col - 1 to scale back
+        # X_one_col = np.log10(X_one_col+1) # 10**X_one_col - 1 to scale back
         X_one_col_res = scaler_train.fit_transform(X_one_col) # scaler_train.inverse_transform(X_one_col_res) to scale back, or use 10**scaler_train.inverse_transform(X_one_col_res) -1 only
         trainds.pwat.values = X_one_col_res.reshape(trainds.pwat.values.shape)
         return scaler_train, trainds
@@ -70,7 +70,7 @@ def transform_train(trainds, var):
     if var == 'cape':
         scaler_train = MinMaxScaler()
         X_one_col = trainds.cape.values.reshape([trainds.cape.values.shape[0]*trainds.cape.values.shape[1]*trainds.cape.values.shape[2], 1])
-        X_one_col = np.log10(X_one_col+1) # 10**X_one_col - 1 to scale back
+        # X_one_col = np.log10(X_one_col+1) # 10**X_one_col - 1 to scale back
         X_one_col_res = scaler_train.fit_transform(X_one_col) # scaler_train.inverse_transform(X_one_col_res) to scale back, or use 10**scaler_train.inverse_transform(X_one_col_res) -1 only
         trainds.cape.values = X_one_col_res.reshape(trainds.cape.values.shape)
         return scaler_train, trainds
@@ -86,7 +86,7 @@ def transform_train(trainds, var):
     if var == 't2m':
         scaler_train = MinMaxScaler()
         X_one_col = trainds.t2m.values.reshape([trainds.t2m.values.shape[0]*trainds.t2m.values.shape[1]*trainds.t2m.values.shape[2], 1])
-        X_one_col = np.log10(X_one_col+1) # 10**X_one_col - 1 to scale back
+        # X_one_col = np.log10(X_one_col+1) # 10**X_one_col - 1 to scale back
         X_one_col_res = scaler_train.fit_transform(X_one_col) # scaler_train.inverse_transform(X_one_col_res) to scale back, or use 10**scaler_train.inverse_transform(X_one_col_res) -1 only
         trainds.t2m.values = X_one_col_res.reshape(trainds.t2m.values.shape)
         return scaler_train, trainds
