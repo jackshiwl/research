@@ -59,6 +59,14 @@ def transform_train(trainds, var):
         trainds.tp.values = X_one_col_res.reshape(trainds.tp.values.shape)
         return scaler_train, trainds
 
+    if var == 'RAINNC': # tp
+        scaler_train = MinMaxScaler()
+        X_one_col = trainds.RAINNC.values.reshape([trainds.RAINNC.values.shape[0]*trainds.RAINNC.values.shape[1]*trainds.RAINNC.values.shape[2], 1])
+        X_one_col = np.log10(X_one_col+1) # 10**X_one_col - 1 to scale back
+        X_one_col_res = scaler_train.fit_transform(X_one_col) # scaler_train.inverse_transform(X_one_col_res) to scale back, or use 10**scaler_train.inverse_transform(X_one_col_res) -1 only
+        trainds.RAINNC.values = X_one_col_res.reshape(trainds.RAINNC.values.shape)
+        return scaler_train, trainds
+
     if var == 'pwat':
         scaler_train = MinMaxScaler()
         X_one_col = trainds.pwat.values.reshape([trainds.pwat.values.shape[0]*trainds.pwat.values.shape[1]*trainds.pwat.values.shape[2], 1])
